@@ -1,5 +1,3 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- AstroCore provides a central place to modify mappings, vim options, autocommands, and more!
 -- Configuration documentation can be found with `:h astrocore`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -29,9 +27,11 @@ return {
       opt = { -- vim.opt.<key>
         relativenumber = true, -- sets vim.opt.relativenumber
         number = true, -- sets vim.opt.number
-        spell = false, -- sets vim.opt.spell
+        spell = true, -- sets vim.opt.spell
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
-        wrap = false, -- sets vim.opt.wrap
+        wrap = true, -- sets vim.opt.wrap
+        shell = "/bin/zsh",
+        autochdir = true,
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
@@ -44,11 +44,25 @@ return {
     mappings = {
       -- first key is the mode
       n = {
+        ["H"] = { "^", desc = "Move cursor to the start of line" },
+        ["L"] = { "$", desc = "Move cursor to the end of line" },
+        ["K"] = { "<C-b>M", desc = "Page up" },
+        ["J"] = { "<C-f>M", desc = "Page down" },
+
+        ["gh"] = { "<cmd>wincmd h<cr>", desc = "Normal left window navigation" },
+        ["gj"] = { "<cmd>wincmd j<cr>", desc = "Normal down window navigation" },
+        ["gk"] = { "<cmd>wincmd k<cr>", desc = "Normal up window navigation" },
+        ["gl"] = { "<cmd>wincmd l<cr>", desc = "Normal right window navigation" },
+
+        ["+"] = { "J", desc = "Connect lines" },
+        ["U"] = { "<C-r>", desc = "Redo" },
+
+        ["<leader>mv"] = { ":MarkdownPreviewToggle<cr>", desc = "Toggle markdown preview" },
         -- second key is the lefthand side of the map
 
         -- navigate buffer tabs with `H` and `L`
-        L = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
-        H = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
+        -- L = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
+        -- H = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
 
         -- mappings seen under group name "Buffer"
         ["<Leader>bD"] = {
@@ -68,6 +82,13 @@ return {
       t = {
         -- setting a mapping to false will disable it
         -- ["<esc>"] = false,
+      },
+      v = {
+        ["H"] = { "^", desc = "Move cursor to the start of line" },
+        ["L"] = { "$", desc = "Move cursor to the end of line" },
+        ["K"] = { "<C-b>M", desc = "Page up" },
+        ["J"] = { "<C-f>M", desc = "Page down" },
+        ["<leader>mf"] = { ":'<,'>!pandoc -t commonmark_x<cr><cr>" },
       },
     },
   },
