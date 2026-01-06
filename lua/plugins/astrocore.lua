@@ -57,6 +57,7 @@ return {
         ["U"] = { "<C-r>", desc = "Redo" },
 
         ["<leader>mv"] = { ":MarkdownPreviewToggle<cr>", desc = "Toggle markdown preview" },
+        ["<leader>nr"] = { ":Neotree reveal_force_cwd<cr>", desc = "Reveal the current folder" },
         -- second key is the lefthand side of the map
 
         -- navigate buffer tabs with `H` and `L`
